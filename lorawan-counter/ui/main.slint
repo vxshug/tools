@@ -1,0 +1,47 @@
+import {GroupBox, LineEdit, Button, ComboBox} from "std-widgets.slint";
+
+export global State {
+  callback enter_key(string);
+}
+
+export component MainWindow inherits Window {
+  title: "Main Window";
+  in-out property <string> key;
+  in-out property <[string]> model: ["123"];
+  width: 600px;
+  height: 500px;
+ 
+  VerticalLayout { 
+    alignment:start;
+    padding-left: 25px;
+    padding-right: 25px;
+ 
+    Text { 
+      font-size: 27px;
+      font-weight: 700;
+      color: #6776FF;  
+     }
+ 
+    GroupBox{
+       title:"lineEdit";
+       LineEdit {
+        edited(s) => {
+          root.key = s;
+        }
+         placeholder-text: "enter api key";
+      }
+    }
+ 
+    Button {
+       text: "start";
+       clicked => {
+        State.enter-key(root.key);
+        }
+    }
+
+      ComboBox {
+        model: root.model;
+      current-value: "123";
+    }
+  }
+}

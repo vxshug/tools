@@ -1,7 +1,14 @@
-import {GroupBox, LineEdit, Button, ComboBox} from "std-widgets.slint";
+import {GroupBox, LineEdit, Button, ComboBox, ListView} from "std-widgets.slint";
 
 export global State {
   callback enter_key(string);
+  callback listen(string, string);
+}
+
+component DataList inherits ListView {
+    width: 150px;
+    height: 150px;
+
 }
 
 export component MainWindow inherits Window {
@@ -23,12 +30,12 @@ export component MainWindow inherits Window {
      }
  
     GroupBox{
-       title:"lineEdit";
+       title:"API Key";
        LineEdit {
         edited(s) => {
           root.key = s;
         }
-         placeholder-text: "enter api key";
+         placeholder-text: "请输入API KEY";
       }
     }
  
@@ -39,9 +46,16 @@ export component MainWindow inherits Window {
         }
     }
 
-      ComboBox {
-        model: root.model;
+    box := ComboBox {
+      model: root.model;
       current-value: "123";
     }
+
+    Button {
+          text: "listen";
+          clicked => {
+            State.listen(root.key, box.current-value);
+         }
+      }
   }
 }

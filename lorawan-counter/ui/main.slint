@@ -3,6 +3,7 @@ import {GroupBox, LineEdit, Button, ComboBox, ListView, HorizontalBox} from "std
 export global State {
   callback enter_key(string);
   callback listen(string, string);
+  callback zero(string);
 }
 export struct DeviceItem {
     name: string,
@@ -13,6 +14,7 @@ component DeviceView inherits HorizontalBox {
         in-out property <DeviceItem> device;
         Text {
             text: device.name;
+            width: 260px;
         }
         Text {
             text: device.count;
@@ -20,29 +22,15 @@ component DeviceView inherits HorizontalBox {
         Button {
         text: "归零";
         clicked => {
-            device.count = 0;
+            State.zero(device.name);
         }
         }
 }
 component DataList inherits ListView {
     width: 500px;
     height: 400px;
-    in-out property <[DeviceItem]> devices: [
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    {name: "1", count: 1},
-    ];
-    for device in devices : DeviceView {
+    in-out property <[DeviceItem]> devices;
+    for device[i] in devices : DeviceView {
         device: device;
     }
 }

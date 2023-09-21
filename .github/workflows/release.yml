@@ -15,7 +15,7 @@ jobs:
           - build: linux
             os: ubuntu-22.04
             rust: nightly
-            target: x86_64-unknown-linux-musl
+            target: x86_64-unknown-linux-gnu
             archive-name: lorawan-counter-linux.tar.gz
           - build: macos
             os: macos-latest
